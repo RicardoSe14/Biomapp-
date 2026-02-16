@@ -185,3 +185,42 @@ html {
     padding-right: 2.5rem; 
 }
 
+/* Esto asegura que nada en la web empuje el ancho más allá del 100% */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Opcional: Oculta la barra de scroll para que se vea más como una App nativa */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Fuerza a los botones a quedarse en una sola línea pase lo que pase */
+.flex-nowrap {
+    flex-wrap: nowrap !important;
+}
+
+/* Mejora la sensibilidad del scroll en móviles */
+.overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory; /* Opcional: hace que los botones "encajen" al deslizar */
+}
+
+.category-pill {
+    scroll-snap-align: start;
+    white-space: nowrap; /* Evita que el texto interno se parta en dos */
+}
+
+/* Ocultar barra de scroll para que se vea limpio */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

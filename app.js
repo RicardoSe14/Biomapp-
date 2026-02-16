@@ -44,8 +44,8 @@ if (!localStorage.getItem('biomaStores')) {
     localStorage.setItem('biomaStores', JSON.stringify(seedStores));
 }
 
+let searchQuery = ""; 
 let currentCategory = 'Todas';
-let searchQuery = "";
 
 const DEFAULT_AVATAR = "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix";
 const DEFAULT_STORE_IMG = "https://via.placeholder.com/600x400?text=Bioma+Tienda";
@@ -378,10 +378,23 @@ function filterByCategory(category) {
 }
 
 function handleSearch() {
-    searchQuery = document.getElementById('store-search').value.toLowerCase();
-    const clearBtn = document.getElementById('clear-search');
-    searchQuery.length > 0 ? clearBtn.classList.remove('hidden') : clearBtn.classList.add('hidden');
+    const input = document.getElementById('store-search');
+    if (!input) return;
+
+    // Actualizamos la variable global
+    searchQuery = input.value.toLowerCase().trim();
+    
+    // DEBUG: Abre la consola (F12) y verás esto cada vez que escribas
+    console.log("Buscando:", searchQuery);
+
+    // Obligamos a redibujar la lista
     renderHomeStores();
+
+    // Botón de limpiar
+    const clearBtn = document.getElementById('clear-search');
+    if (clearBtn) {
+        searchQuery.length > 0 ? clearBtn.classList.remove('hidden') : clearBtn.classList.add('hidden');
+    }
 }
 
 function clearSearch() {
@@ -399,12 +412,23 @@ function renderHomeStores() {
     if (!list) return;
 
     // 1. Filtrar
+// 1. Filtrar con lógica robusta
     let filteredStores = allStores.filter(s => {
-        const isNotMyStore = !currentUser || !currentUser.store || s.name !== currentUser.store.name;
+        // Normalizamos los textos para comparar sin errores
+        const name = (s.name || "").toLowerCase();
+        const desc = (s.desc || "").toLowerCase();
+        const cat = (s.category || "").toLowerCase();
+        
+        // El buscador debe mirar en Nombre, Descripción y Categoría
+        const matchesSearch = searchQuery === "" || 
+                              name.includes(searchQuery) || 
+                              desc.includes(searchQuery) || 
+                              cat.includes(searchQuery);
+
+        // El filtro de bolitas (categoría)
         const matchesCategory = currentCategory === 'Todas' || s.category === currentCategory;
-        const matchesSearch = s.name.toLowerCase().includes(searchQuery) || 
-                              s.desc.toLowerCase().includes(searchQuery);
-        return isNotMyStore && matchesCategory && matchesSearch;
+
+        return matchesSearch && matchesCategory;
     });
 
     // 2. Función auxiliar interna para normalizar distancias
