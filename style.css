@@ -1,0 +1,187 @@
+body {
+    /* Ruta de la imagen */
+    background-image: url('assets/image/fondo.png');
+    
+    /* Modo mosaico: permite que se repita en horizontal y vertical */
+    background-repeat: repeat;
+    
+    /* Asegura que la imagen mantenga su tamaño original para que el patrón encaje */
+    background-size: 500px;
+    
+    /* Mantiene el fondo fijo mientras haces scroll (opcional, da un toque pro) */
+    background-attachment: fixed;
+    
+    /* Posicionamiento inicial */
+    background-position: top left;
+}
+
+main > section {
+    background-color: rgba(255, 255, 255, 0.95); /* Blanco con 95% de opacidad */
+    backdrop-filter: blur(50px); /* Efecto de desenfoque ligero */
+    border-radius: 24px;
+    padding: 2rem;
+}
+
+footer {
+    /* Esto asegura que el footer siempre tenga un fondo sólido blanco sobre el mosaico */
+    background-color: white;
+    position: relative;
+    z-index: 20;
+}
+
+.social-icon span {
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Ajuste para que el mosaico del body no se vea raro al final */
+html {
+    scroll-behavior: smooth;
+}
+
+#hero-banner {
+    margin-top: 4rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Animación suave para el logo para que tenga vida */
+@keyframes pulse-slow {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+.animate-pulse-slow {
+    animation: pulse-slow 4s infinite ease-in-out;
+}
+
+#hero-banner {
+    /* Ajuste de márgenes para que no se vea tan separado */
+    margin-top: 2rem; 
+    min-height: 250px; /* Altura mínima controlada */
+}
+
+/* Sombra de texto para asegurar lectura en altura pequeña */
+#hero-banner h2 {
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+}
+
+/* Asegurar que la imagen de fondo no se estire raro */
+#hero-banner .bg-cover {
+    background-size: cover;
+    background-position: center; /* Ajusta el centro de la imagen un poco más arriba */
+}
+
+
+/* Estilo de los botones de filtro compactos */
+.category-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: white;
+    padding: 6px 12px;
+    border-radius: 9999px; /* Forma de píldora */
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.category-pill:hover {
+    border-color: #00B894;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.category-pill .pill-icon {
+    font-size: 1.1rem;
+}
+
+.category-pill .pill-text {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #6b7280;
+    letter-spacing: 0.5px;
+}
+
+
+/* Animación para que aparezca desde arriba suavemente */
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Aplicar la animación cuando no tengan la clase .hidden */
+#login-drawer:not(.hidden),
+#dropdown-menu:not(.hidden) {
+    display: block !important;
+    animation: dropdownFade 0.25s ease-out forwards;
+}
+
+/* Sombra extra para dar profundidad sobre el contenido */
+#login-drawer, #dropdown-menu {
+    filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+}
+
+/* Esto asegura que la animación 'dropdownFade' que creamos antes 
+   se aplique cada vez que el panel pierda la clase 'hidden' */
+#login-drawer:not(.hidden), 
+#dropdown-menu:not(.hidden) {
+    display: block !important;
+    animation: dropdownFade 0.2s ease-out;
+}
+
+/* Forzamos que la clase active tenga prioridad absoluta */
+.category-pill.active {
+    background-color: #00B894 !important;
+    border-color: #00B894 !important;
+}
+
+/* EL ESTADO ACTIVO */
+.category-pill.active {
+    background-color: #00B894 !important;
+    border-color: #00B894 !important;
+    box-shadow: 0 4px 10px rgba(0, 184, 148, 0.3);
+}
+
+/* EL TEXTO E ICONO DENTRO DEL ACTIVO */
+.category-pill.active .pill-text,
+.category-pill.active .pill-icon {
+    color: white !important; /* Forzamos blanco */
+}
+
+/* Por si acaso, quitamos cualquier filtro de opacidad */
+.category-pill {
+    opacity: 1 !important;
+}
+
+#store-search::placeholder {
+    color: #9ca3af;
+    font-style: italic;
+    font-weight: 400;
+}
+
+#store-search:focus {
+    background-color: #fff;
+    transform: translateY(-1px);
+}
+
+#clear-search {
+    /* Ajuste para que se vea bien dentro de la píldora */
+    padding: 2px;
+    border-radius: 50%;
+}
+
+#clear-search:hover {
+    transform: scale(1.1);
+}
+
+/* Evitar que el texto choque con la X si es muy largo */
+#store-search {
+    padding-right: 2.5rem; 
+}
+

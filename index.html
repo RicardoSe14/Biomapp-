@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bioma - Comunidad Biomer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --biomer: #00B894; }
+        .text-biomer { color: var(--biomer); }
+        .bg-biomer { background-color: var(--biomer); }
+        #splash-screen { animation: fadeOut 0.8s ease-in-out 2.5s forwards; }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
+        #map { height: 250px; width: 100%; border-radius: 12px; margin: 10px 0; z-index: 10; }
+        .hidden { display: none !important; }
+        .section-transition { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .animate-slide-in { animation: slideIn 0.2s ease-out; }
+        @keyframes slideIn { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div id="splash-screen" class="fixed inset-0 z-[100] bg-white flex items-center justify-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-biomer italic tracking-tighter">¡Bienvenido Biomer!</h1>
+    </div>
+
+    <nav class="sticky top-0 z-50 bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+        <div class="flex items-center gap-2 cursor-pointer" onclick="showSection('home')">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs text-gray-400">
+                <svg width="34" height="34" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 38C20 38 34 26.5 34 16C34 8.26801 27.732 2 20 2C12.268 2 6 8.26801 6 16C6 26.5 20 38 20 38Z" fill="#00B894" />
+                    <path d="M20 10V26M20 20L26 14M20 24L14 18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <span class="text-2xl font-black text-biomer tracking-tighter italic">BIOMA</span>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <span id="nav-user-greeting" class="hidden md:inline text-sm font-medium text-gray-600"></span>
+            <div class="w-10 h-10 bg-gray-100 rounded-full border-2 border-biomer overflow-hidden">
+                <img id="nav-avatar-img" src="assets\image\perfil.png" class="w-full h-full object-cover">
+            </div>
+
+            <div class="relative">
+          <button id="btn-login-toggle" onclick="toggleElement('login-drawer')" ...>
+    Iniciar Sesión
+</button>
+
+                <div id="login-drawer" class="hidden absolute right-0 mt-3 w-72 md:w-80 bg-white border border-gray-100 rounded-2xl shadow-2xl z-[60] overflow-hidden">
+                    <div class="p-6 space-y-4">
+                        <h3 class="font-bold text-center text-lg text-gray-800">Ingresa a Bioma</h3>
+                        <input id="log-email" type="email" placeholder="Correo" class="w-full border p-3 rounded-lg outline-none focus:border-biomer text-sm">
+                        <input id="log-pass" type="password" placeholder="Contraseña" class="w-full border p-3 rounded-lg outline-none focus:border-biomer text-sm">
+                        <button onclick="handleLogin()" class="w-full bg-biomer text-white py-3 rounded-lg font-bold hover:brightness-110 transition">Entrar</button>
+                        <p class="text-center text-[11px] text-gray-500">¿No tienes cuenta? <button onclick="openRegisterModal()" class="text-biomer font-bold underline">Regístrate</button></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menu-logged" class="hidden relative">
+                <button onclick="toggleDropdown()" class="p-2 text-2xl text-gray-600 hover:bg-gray-100 rounded-lg">☰</button>
+                <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-56 bg-white border border-gray-100 rounded-2xl shadow-2xl overflow-hidden z-[60]">
+                    <div class="px-4 py-3 bg-gray-50 border-b">
+                        <p id="drop-user-name" class="text-sm font-bold text-gray-800 truncate"></p>
+                        <p class="text-[10px] text-biomer font-black uppercase tracking-widest">Miembro Biomer</p>
+                    </div>
+                    <button onclick="showSection('profile')" class="block w-full text-left px-4 py-3 hover:bg-biomer/10 border-b border-gray-50 text-sm">👤 Mi Perfil</button>
+                    <button onclick="showSection('my-store')" class="block w-full text-left px-4 py-3 hover:bg-biomer/10 border-b border-gray-50 text-sm">🏪 Mi Tienda</button>
+                    <button onclick="logout()" class="block w-full text-left px-4 py-3 text-red-500 hover:bg-red-50 font-bold text-sm">🚪 Cerrar Sesión</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <div id="login-drawer" class="hidden bg-white border-b shadow-inner p-6">
+        <div class="max-w-md mx-auto space-y-4">
+            <h3 class="font-bold text-center text-lg">Ingresa a Bioma</h3>
+            <input id="log-email" type="email" placeholder="Correo" class="w-full border p-3 rounded-lg outline-none focus:border-biomer">
+            <input id="log-pass" type="password" placeholder="Contraseña" class="w-full border p-3 rounded-lg outline-none focus:border-biomer">
+            <button onclick="handleLogin()" class="w-full bg-biomer text-white py-3 rounded-lg font-bold">Entrar</button>
+            <p class="text-center text-sm">¿No tienes cuenta? <button onclick="openRegisterModal()" class="text-biomer font-bold underline">Regístrate aquí</button></p>
+        </div>
+    </div>
+
+    
+
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
+
+<section id="sec-home" class="section-transition space-y-6">
+    <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+        <h2 class="text-3xl font-extrabold text-gray-700 italic flex-shrink-0">
+            Descubre locales Biomer
+        </h2>
+
+        <div class="flex flex-col md:flex-row items-center gap-4 w-full xl:justify-end">
+            
+<div class="relative w-full md:w-64 group">
+    <span class="absolute inset-y-0 left-4 flex items-center text-gray-400 pointer-events-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+    </span>
+    
+    <input 
+        type="text" 
+        id="store-search" 
+        oninput="handleSearch()" 
+        placeholder="Buscar por nombre o categoría..." 
+        class="w-full pl-11 pr-10 py-2.5 bg-white border border-gray-200 rounded-full text-xs font-bold outline-none focus:border-biomer focus:ring-4 focus:ring-biomer/10 transition-all shadow-sm"
+    >
+
+    <button 
+        id="clear-search" 
+        onclick="clearSearch()" 
+        class="hidden absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-red-500 transition-colors"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+        </svg>
+    </button>
+</div>
+
+<div class="flex items-center gap-3 overflow-x-auto pb-2">
+    <button onclick="filterByCategory('Todas', 0)" class="category-pill active">
+        <span class="pill-icon">🌍</span> <span class="pill-text">Todas</span>
+    </button>
+    <button onclick="filterByCategory('Aventura', 1)" class="category-pill">
+        <span class="pill-icon">🧗</span> <span class="pill-text">Aventura</span>
+    </button>
+    <button onclick="filterByCategory('Gastronomía', 2)" class="category-pill">
+        <span class="pill-icon">🍕</span> <span class="pill-text">Comida</span>
+    </button>
+    <button onclick="filterByCategory('Cultura', 3)" class="category-pill">
+        <span class="pill-icon">🏛️</span> <span class="pill-text">Cultura</span>
+    </button>
+    <button onclick="filterByCategory('Naturaleza', 4)" class="category-pill">
+        <span class="pill-icon">🌿</span> <span class="pill-text">Natura</span>
+    </button>
+    <button onclick="filterByCategory('Descanso', 5)" class="category-pill">
+        <span class="pill-icon">🧘</span> <span class="pill-text">Relax</span>
+    </button>
+</div>
+        </div>
+    </div>
+
+    <div id="stores-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</section>
+        
+
+        <section id="sec-store-view" class="hidden section-transition space-y-8">
+  <button onclick="showSection('home')" class="text-biomer font-bold flex items-center gap-2 hover:underline mb-4">
+    ← Volver al inicio
+</button>
+
+    <div id="public-store-header" class="bg-white p-6 rounded-3xl shadow-sm border flex flex-col md:flex-row items-center gap-8">
+        </div>
+
+    <div class="space-y-6">
+        <h3 class="text-2xl font-black text-gray-700 italic">Catálogo de Productos y Servicios</h3>
+        <div id="public-products-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            </div>
+    </div>
+</section>
+
+        <section id="sec-profile" class="hidden section-transition max-w-xl mx-auto">
+            <div class="bg-white p-8 rounded-3xl shadow-sm border text-center">
+                <div class="relative w-32 h-32 mx-auto mb-4">
+                    <img id="prof-img-big" src="" class="w-full h-full rounded-full border-4 border-biomer object-cover">
+                    <label class="absolute bottom-0 right-0 bg-white p-2 rounded-full shadow border cursor-pointer text-xs">✏️
+                        <input type="file" class="hidden" accept="image/*" onchange="updateProfileAvatar(this)">
+                    </label>
+                </div>
+                <div id="profile-display">
+                    <h2 class="text-2xl font-bold mb-2" id="prof-name-text"></h2>
+                    <p id="prof-email-text" class="text-gray-500 mb-6"></p>
+                    <button onclick="toggleEditProfile(true)" class="bg-gray-100 px-6 py-2 rounded-xl text-sm font-bold">Editar Nombre</button>
+                </div>
+                <div id="profile-edit" class="hidden space-y-4">
+                    <input type="text" id="edit-prof-name" class="w-full border p-3 rounded-xl">
+                    <button onclick="saveProfile()" class="bg-biomer text-white px-6 py-2 rounded-xl font-bold">Guardar</button>
+                    <button onclick="toggleEditProfile(false)" class="text-gray-400 block mx-auto text-sm">Cancelar</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-my-store" class="hidden section-transition">
+            <div id="no-store-view" class="text-center py-20 space-y-6">
+                <div class="text-6xl">🏪</div>
+                <h2 class="text-2xl font-bold">Publica tu tienda en Bioma</h2>
+                <button onclick="toggleElement('form-store-container')" class="bg-biomer text-white px-8 py-4 rounded-2xl font-black shadow-lg">CREAR MI TIENDA</button>
+            </div>
+
+            <div id="form-store-container" class="hidden max-w-2xl mx-auto bg-white p-8 rounded-3xl shadow-xl border mb-10">
+                <h3 class="text-2xl font-bold mb-6 text-biomer">Detalles de la Tienda</h3>
+                <form id="store-form" class="space-y-4">
+                    <input type="text" id="st-name" placeholder="Nombre de la tienda" class="w-full border p-3 rounded-lg" required>
+                    <textarea id="st-desc" placeholder="Descripción" class="w-full border p-3 rounded-lg" required></textarea>
+                    <input type="text" id="st-loc" placeholder="Dirección" class="w-full border p-3 rounded-lg" required>
+                    <input type="tel" id="st-phone" placeholder="Celular (ej: +56912345678)" class="w-full border p-3 rounded-lg" required>
+                    <select id="st-category" class="w-full border p-3 rounded-lg bg-white" required>
+    <option value="" disabled selected>Selecciona una categoría</option>
+    <option value="Aventura">Aventura</option>
+    <option value="Gastronomía">Gastronomía</option>
+    <option value="Cultura">Cultura</option>
+    <option value="Naturaleza">Naturaleza</option>
+    <option value="Descanso">Descanso</option>
+</select>
+                    <input type="text" id="st-hours" placeholder="Horario 10:00 - 18:00" class="w-full border p-3 rounded-lg" required>
+                    <div class="space-y-2">
+    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Imagen de portada de tu tienda</label>
+    <div class="relative">
+        <input type="file" id="st-img" accept="image/*" class="hidden" onchange="updateImagePreview(this, 'st-preview', 'st-text')">
+        <label for="st-img" class="flex flex-col items-center justify-center w-full border-2 border-dashed border-gray-200 rounded-2xl cursor-pointer hover:border-biomer hover:bg-biomer/5 transition-all overflow-hidden h-40">
+            <div id="st-preview" class="w-full h-full flex flex-col items-center justify-center text-gray-400">
+                <span class="text-3xl mb-2">🏪</span>
+                <p id="st-text" class="text-xs font-bold">Seleccionar imagen del local</p>
+            </div>
+        </label>
+    </div>
+</div>
+                    <button type="submit" class="w-full bg-biomer text-white py-4 rounded-xl font-bold">Guardar Tienda</button>
+                </form>
+            </div>
+
+            <div id="store-dashboard" class="hidden space-y-8">
+                <div class="flex justify-end">
+                    <button onclick="enableEditStore()" class="text-biomer font-bold text-sm">✏️ Editar datos de la tienda</button>
+                </div>
+                <div id="store-info-display" class="bg-white p-6 rounded-2xl shadow border flex flex-col md:flex-row items-center gap-6"></div>
+
+<div class="bg-white rounded-2xl border shadow-sm overflow-hidden">
+    <button onclick="toggleProductForm()" class="w-full flex justify-between items-center p-5 hover:bg-gray-50 transition-all">
+        <h4 id="prod-form-title" class="font-bold text-xl italic text-gray-700">Agregar Producto / Servicio</h4>
+        <span id="form-chevron" class="text-biomer text-xl transition-transform duration-300">＋</span>
+    </button>
+
+    <div id="product-form-body" class="hidden p-6 border-t bg-gray-50/50">
+        <form id="product-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="hidden" id="edit-prod-index" value="-1">
+            <input type="text" id="p-name" placeholder="Nombre" class="p-3 rounded-lg border bg-white" required>
+            <input type="number" id="p-price" placeholder="Valor ($)" class="p-3 rounded-lg border bg-white" required>
+            <textarea id="p-desc" placeholder="Descripción" class="p-3 rounded-lg border bg-white md:col-span-2" required></textarea>
+<div class="md:col-span-2 space-y-2">
+    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Imagen del Producto (Obligatoria)</label>
+    <div class="relative">
+        <input type="file" id="p-img" accept="image/*" class="hidden" onchange="updateImagePreview(this, 'p-preview', 'p-text')">
+        <label for="p-img" class="flex flex-col items-center justify-center w-full border-2 border-dashed border-gray-200 rounded-xl cursor-pointer hover:border-biomer hover:bg-biomer/5 transition-all overflow-hidden h-32">
+            <div id="p-preview" class="w-full h-full flex flex-col items-center justify-center text-gray-400">
+                <span class="text-2xl mb-1">📦</span>
+                <p id="p-text" class="text-[10px] font-bold uppercase">Cargar Imagen</p>
+            </div>
+        </label>
+    </div>
+</div>
+            <button type="submit" id="btn-prod-submit" class="md:col-span-2 bg-black text-white py-3 rounded-lg font-bold hover:bg-biomer transition-colors">Añadir Producto</button>
+            <button type="button" id="btn-prod-cancel" class="hidden md:col-span-2 text-red-400 text-sm font-bold mt-2" onclick="resetProductForm()">Cancelar Edición</button>
+        </form>
+    </div>
+</div>
+
+<div id="products-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+            </div>
+        </section>
+    </main>
+<div id="modal-reg" class="hidden fixed inset-0 z-[200] bg-black/60 flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl animate-slide-in">
+        <h2 class="text-3xl font-black mb-1 text-biomer italic">Registro Biomer</h2>
+        <p class="text-gray-400 text-xs mb-6">Únete a la comunidad consciente más grande.</p>
+
+        <form id="reg-form" class="space-y-4">
+            <input type="text" id="r-name" placeholder="Nombre completo" class="w-full border p-3 rounded-xl outline-none focus:border-biomer transition-all" required>
+            <input type="email" id="r-email" placeholder="Email" class="w-full border p-3 rounded-xl outline-none focus:border-biomer transition-all" required>
+            <input type="password" id="r-pass" placeholder="Contraseña" class="w-full border p-3 rounded-xl outline-none focus:border-biomer transition-all" required>
+
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Tu foto de perfil</label>
+                <div class="relative">
+                    <input type="file" id="r-avatar" accept="image/*" class="hidden" onchange="updateRegisterAvatarLabel(this)">
+                    <label for="r-avatar" class="flex items-center gap-4 w-full border-2 border-dashed border-gray-200 p-3 rounded-xl cursor-pointer hover:border-biomer hover:bg-biomer/5 transition-all group">
+                        <div id="reg-avatar-preview" class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-xl border group-hover:scale-110 transition-transform overflow-hidden">
+                            👤
+                        </div>
+                        <div class="text-left">
+                            <p id="reg-avatar-text" class="text-sm font-bold text-gray-600">Subir foto de perfil</p>
+                            <p class="text-[10px] text-gray-400">Toca para seleccionar archivo</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-biomer text-white py-4 rounded-xl font-bold shadow-lg hover:brightness-110 transition-all mt-4">Crear Cuenta</button>
+            <button type="button" onclick="closeRegisterModal()" class="w-full text-gray-400 text-xs mt-2 hover:text-gray-600 transition-colors">Volver atrás</button>
+        </form>
+    </div>
+</div>
+
+    <section id="hero-banner" class="hidden relative w-full h-[250px] md:h-[300px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('./assets/image/Banner.png');"></div>
+    <div class="absolute inset-0 bg-black/40"></div>
+
+    <div class="relative z-10 w-full max-w-6xl mx-auto px-6 flex items-center justify-center gap-6 md:gap-12">
+        
+        <div class="flex-shrink-0">
+            <div class="relative w-24 h-24 md:w-32 md:h-32 bg-[#00B894] rounded-t-full rounded-bl-full flex items-center justify-center rotate-45 shadow-xl border-2 border-white/20">
+                <div class="rotate-[-45deg] flex items-center justify-center">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 3V21M12 15L18 9M12 18L6 12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-white text-left space-y-1">
+            <h2 class="text-xl md:text-3xl font-black leading-tight uppercase italic tracking-tighter">
+                Sé parte de la <br>
+                <span class="text-[#00B894] brightness-125">revolución verde.</span>
+            </h2>
+            <h3 class="text-lg md:text-2xl font-light uppercase tracking-widest leading-none">
+                Tu aventura <span class="font-black">comienza aquí</span>
+            </h3>
+            
+            <div class="pt-3">
+                <button onclick="openRegisterModal()" class="border border-white px-5 py-1.5 rounded-full font-bold uppercase text-[10px] md:text-xs hover:bg-white hover:text-black transition-all tracking-widest">
+                    Únete a Bioma →
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="bg-white border-t mt-0 pb-10 pt-16">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+        
+        <div class="space-y-4">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-biomer rounded-lg flex items-center justify-center font-bold text-white text-[10px]">B</div>
+                <span class="text-xl font-black text-biomer tracking-tighter italic">BIOMA</span>
+            </div>
+            <p class="text-gray-500 text-sm leading-relaxed">
+                Conectando comunidades a través de productos conscientes y locales. Únete al movimiento Biomer.
+            </p>
+        </div>
+
+        <div>
+            <h4 class="font-bold text-gray-800 mb-6 uppercase text-xs tracking-widest">Navegación</h4>
+            <ul class="space-y-4 text-sm text-gray-500 font-medium">
+                <li><a href="#" onclick="showSection('home')" class="hover:text-biomer transition">Inicio</a></li>
+                <li><a href="#" class="hover:text-biomer transition">Cómo funciona</a></li>
+                <li><a href="#" class="hover:text-biomer transition">Mapa de locales</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="font-bold text-gray-800 mb-6 uppercase text-xs tracking-widest">Ayuda</h4>
+            <ul class="space-y-4 text-sm text-gray-500 font-medium">
+                <li><a href="#" class="hover:text-biomer transition">Preguntas Frecuentes</a></li>
+                <li><a href="#" class="hover:text-biomer transition">Términos y Condiciones</a></li>
+                <li><a href="#" class="hover:text-biomer transition">Contacto</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="font-bold text-gray-800 mb-6 uppercase text-xs tracking-widest">Síguenos</h4>
+            <div class="flex gap-4">
+                <a href="#" class="social-icon" title="Instagram">
+                    <span class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-pink-100 hover:text-pink-600 transition-all">📸</span>
+                </a>
+                <a href="#" class="social-icon" title="Facebook">
+                    <span class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-100 hover:text-blue-600 transition-all">📘</span>
+                </a>
+                <a href="#" class="social-icon" title="TikTok">
+                    <span class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-all">🎵</span>
+                </a>
+            </div>
+            <p class="mt-6 text-[10px] text-gray-400 font-bold uppercase tracking-tighter">
+                © 2026 BIOMA - Hecho con ❤️ para Biomers
+            </p>
+        </div>
+    </div>
+</footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
