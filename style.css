@@ -1,6 +1,6 @@
 body {
     /* Ruta de la imagen */
-    background-image: url('assets/image/fondo.png');
+    background-image: url('assets/image/Fondo.png');
     
     /* Modo mosaico: permite que se repita en horizontal y vertical */
     background-repeat: repeat;
