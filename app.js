@@ -1,40 +1,151 @@
 const seedStores = [
-    { name: "La Cumbre Coffee", desc: "Café de especialidad con granos orgánicos y vista a la montaña.", loc: "Sector Alto, Local 4", phone: "+56911111111", category: "Gastronomía", hours: "09:00 - 20:00", distance: "450 mts", image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=500", products: [
-        { name: "Espresso Orgánico", price: "2500", desc: "Grano arábica seleccionado.", image: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400" },
-        { name: "Muffin de Arándanos", price: "1800", desc: "Horneado hoy con fruta local.", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400" }
-    ] },
-    { name: "Ruta Verde Trekking", desc: "Guías expertos en senderismo y avistamiento de aves locales.", loc: "Camino al Volcán km 12", phone: "+56922222222", category: "Aventura", hours: "07:00 - 18:00", distance: "2.5 km", image: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=500", products: [
-        { name: "Tour Glaciar", price: "45000", desc: "Día completo con equipo incluido.", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400" },
-        { name: "Arriendo Bastones", price: "5000", desc: "Par de bastones de fibra de carbono.", image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=400" }
-    ] },
-    { name: "Zen Garden Spa", desc: "Masajes terapéuticos y meditación guiada frente al río.", loc: "Pasaje Los Pinos 45", phone: "+56933333333", category: "Descanso", hours: "10:00 - 19:00", distance: "1.2 km", image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600", products: [
-        { name: "Masaje Descontracturante", price: "25000", desc: "60 min de relajación profunda.", image: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=400" },
-        { name: "Aceite de Lavanda", price: "8500", desc: "Esencia pura para dormir mejor.", image: "https://images.unsplash.com/photo-1602928321679-560bb453f190?w=400" }
-    ] },
-    { name: "Museo sobre el mar", desc: "Artesanías con conchitas y tours sobre la historia geológica de la zona.", loc: "Plaza Central 102", phone: "+56944444444", category: "Cultura", hours: "10:00 - 17:00", distance: "800 mts", image: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=600", products: [
-        { name: "Collar de Nácar", price: "12000", desc: "Hecho a mano con conchas recolectadas.", image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400" },
-        { name: "Libro: Historia Costera", price: "15000", desc: "Relatos de los antiguos navegantes.", image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400" }
-    ] },
-    { name: "EcoBici Alquiler", desc: "Arriendo de bicicletas eléctricas y equipo de seguridad.", loc: "Entrada Parque Nacional", phone: "+56955555555", category: "Aventura", hours: "08:00 - 20:00", distance: "3.1 km", image: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=600", products: [
-        { name: "Arriendo E-Bike 4h", price: "18000", desc: "Batería cargada y casco incluido.", image: "https://images.unsplash.com/photo-1571333250630-f0230c320b6d?w=400" }
-    ] },
-    { name: "Pizzería del Bosque", desc: "Pizzas a la piedra con ingredientes recolectados localmente.", loc: "Av. Principal 560", phone: "+56966666666", category: "Gastronomía", hours: "18:00 - 00:00", distance: "150 mts", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500", products: [
-        { name: "Pizza Funghi", price: "9500", desc: "Setas silvestres y queso de campo.", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" },
-        { name: "Jugo Natural 500ml", price: "2500", desc: "Fruta de la estación.", image: "https://images.unsplash.com/photo-1536935338788-846bb9981813?w=400" }
-    ] },
-    { name: "Vivero El Brote", desc: "Especies nativas y talleres de huerta orgánica urbana.", loc: "Camino Rural s/n", phone: "+56977777777", category: "Naturaleza", hours: "09:00 - 18:00", distance: "5.4 km", image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=500", products: [
-        { name: "Pack Suculentas (3)", price: "6000", desc: "Ideales para departamentos.", image: "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=400" }
-    ] },
-    { name: "Té y Calma", desc: "Salón de té especializado en mezclas de hierbas silvestres.", loc: "Callejón Secreto 12", phone: "+56988888888", category: "Descanso", hours: "16:00 - 21:00", distance: "950 mts", image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600", products: [
-        { name: "Infusión del Bosque", price: "3200", desc: "Mezcla de menta, boldo y cedrón.", image: "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?w=400" }
-    ] },
-    { name: "Galpón de los Libros", desc: "Librería de usados y café literario con eventos culturales.", loc: "Antiguo Galpón Ferroviario", phone: "+56999999999", category: "Cultura", hours: "11:00 - 20:00", distance: "2.1 km", image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500", products: [
-        { name: "Novela Usada", price: "4000", desc: "Títulos clásicos en buen estado.", image: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400" }
-    ] },
-    { name: "Refugio del Cóndor", desc: "Alojamiento sustentable con energía solar y huella cero.", loc: "Mirador del Valle", phone: "+5612345678", category: "Naturaleza", hours: "24/7", distance: "8.7 km", image: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600", products: [
-        { name: "Noche en Cabaña", price: "65000", desc: "Para 2 personas con desayuno.", image: "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?auto=format&fit=crop&q=80&w=400" }
-    ] }
+    { 
+        name: "La Cumbre Coffee", 
+        desc: "Café de especialidad con granos orgánicos y vista a la montaña.", 
+        loc: "Sector Alto, Local 4", 
+        phone: "+56911111111", 
+        category: "Gastronomía", 
+        hours: "09:00 - 20:00", 
+        distance: "450 mts", 
+        image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=500", 
+        social: { instagram: "lacumbre_coffee", facebook: "lacumbrecoffee", tiktok: "lacumbre.cafe", x: "" },
+        products: [
+            { name: "Espresso Orgánico", price: "2500", desc: "Grano arábica seleccionado.", image: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400" },
+            { name: "Muffin de Arándanos", price: "1800", desc: "Horneado hoy con fruta local.", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400" }
+        ] 
+    },
+    { 
+        name: "Ruta Verde Trekking", 
+        desc: "Guías expertos en senderismo y avistamiento de aves locales.", 
+        loc: "Camino al Volcán km 12", 
+        phone: "+56922222222", 
+        category: "Aventura", 
+        hours: "07:00 - 18:00", 
+        distance: "2.5 km", 
+        image: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=500", 
+        social: { instagram: "rutaverdetrekking", facebook: "", tiktok: "rutaverde_trek", x: "rutaverde" },
+        products: [
+            { name: "Tour Glaciar", price: "45000", desc: "Día completo con equipo incluido.", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400" },
+            { name: "Arriendo Bastones", price: "5000", desc: "Par de bastones de fibra de carbono.", image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=400" }
+        ] 
+    },
+    { 
+        name: "Zen Garden Spa", 
+        desc: "Masajes terapéuticos y meditación guiada frente al río.", 
+        loc: "Pasaje Los Pinos 45", 
+        phone: "+56933333333", 
+        category: "Descanso", 
+        hours: "10:00 - 19:00", 
+        distance: "1.2 km", 
+        image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600", 
+        social: { instagram: "zengardenspa", facebook: "zengardenspa.oficial", tiktok: "", x: "" },
+        products: [
+            { name: "Masaje Descontracturante", price: "25000", desc: "60 min de relajación profunda.", image: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=400" },
+            { name: "Aceite de Lavanda", price: "8500", desc: "Esencia pura para dormir mejor.", image: "https://images.unsplash.com/photo-1602928321679-560bb453f190?w=400" }
+        ] 
+    },
+    { 
+        name: "Museo sobre el mar", 
+        desc: "Artesanías con conchitas y tours sobre la historia geológica de la zona.", 
+        loc: "Plaza Central 102", 
+        phone: "+56944444444", 
+        category: "Cultura", 
+        hours: "10:00 - 17:00", 
+        distance: "800 mts", 
+        image: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=600", 
+        social: { instagram: "museodelmar_local", facebook: "museomar_oficial", tiktok: "", x: "" },
+        products: [
+            { name: "Collar de Nácar", price: "12000", desc: "Hecho a mano con conchas recolectadas.", image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400" },
+            { name: "Libro: Historia Costera", price: "15000", desc: "Relatos de los antiguos navegantes.", image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400" }
+        ] 
+    },
+    { 
+        name: "EcoBici Alquiler", 
+        desc: "Arriendo de bicicletas eléctricas y equipo de seguridad.", 
+        loc: "Entrada Parque Nacional", 
+        phone: "+56955555555", 
+        category: "Aventura", 
+        hours: "08:00 - 20:00", 
+        distance: "3.1 km", 
+        image: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=600", 
+        social: { instagram: "ecobicialquiler", facebook: "", tiktok: "ecobici_chile", x: "ecobici" },
+        products: [
+            { name: "Arriendo E-Bike 4h", price: "18000", desc: "Batería cargada y casco incluido.", image: "https://images.unsplash.com/photo-1571333250630-f0230c320b6d?w=400" }
+        ] 
+    },
+    { 
+        name: "Pizzería del Bosque", 
+        desc: "Pizzas a la piedra con ingredientes recolectados localmente.", 
+        loc: "Av. Principal 560", 
+        phone: "+56966666666", 
+        category: "Gastronomía", 
+        hours: "18:00 - 00:00", 
+        distance: "150 mts", 
+        image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500", 
+        social: { instagram: "pizzeriadelbosque", facebook: "pizzeriabosque", tiktok: "lapizza.delbosque", x: "" },
+        products: [
+            { name: "Pizza Funghi", price: "9500", desc: "Setas silvestres y queso de campo.", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" },
+            { name: "Jugo Natural 500ml", price: "2500", desc: "Fruta de la estación.", image: "https://images.unsplash.com/photo-1536935338788-846bb9981813?w=400" }
+        ] 
+    },
+    { 
+        name: "Vivero El Brote", 
+        desc: "Especies nativas y talleres de huerta orgánica urbana.", 
+        loc: "Camino Rural s/n", 
+        phone: "+56977777777", 
+        category: "Naturaleza", 
+        hours: "09:00 - 18:00", 
+        distance: "5.4 km", 
+        image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=500", 
+        social: { instagram: "viveroelbrote", facebook: "", tiktok: "elbrote_vivero", x: "" },
+        products: [
+            { name: "Pack Suculentas (3)", price: "6000", desc: "Ideales para departamentos.", image: "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=400" }
+        ] 
+    },
+    { 
+        name: "Té y Calma", 
+        desc: "Salón de té especializado en mezclas de hierbas silvestres.", 
+        loc: "Callejón Secreto 12", 
+        phone: "+56988888888", 
+        category: "Descanso", 
+        hours: "16:00 - 21:00", 
+        distance: "950 mts", 
+        image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600", 
+        social: { instagram: "te.y.calma", facebook: "tecalma_tea", tiktok: "", x: "" },
+        products: [
+            { name: "Infusión del Bosque", price: "3200", desc: "Mezcla de menta, boldo y cedrón.", image: "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?w=400" }
+        ] 
+    },
+    { 
+        name: "Galpón de los Libros", 
+        desc: "Librería de usados y café literario con eventos culturales.", 
+        loc: "Antiguo Galpón Ferroviario", 
+        phone: "+56999999999", 
+        category: "Cultura", 
+        hours: "11:00 - 20:00", 
+        distance: "2.1 km", 
+        image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500", 
+        social: { instagram: "galpondeloslibros", facebook: "galponlibros", tiktok: "", x: "galponlibros" },
+        products: [
+            { name: "Novela Usada", price: "4000", desc: "Títulos clásicos en buen estado.", image: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400" }
+        ] 
+    },
+    { 
+        name: "Refugio del Cóndor", 
+        desc: "Alojamiento sustentable con energía solar y huella cero.", 
+        loc: "Mirador del Valle", 
+        phone: "+5612345678", 
+        category: "Naturaleza", 
+        hours: "24/7", 
+        distance: "8.7 km", 
+        image: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600", 
+        social: { instagram: "refugiodelcondor", facebook: "refugiocondor_hotel", tiktok: "vlog_condor", x: "" },
+        products: [
+            { name: "Noche en Cabaña", price: "65000", desc: "Para 2 personas con desayuno.", image: "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?auto=format&fit=crop&q=80&w=400" }
+        ] 
+    }
 ];
+
 let currentUser = JSON.parse(localStorage.getItem('activeBiomer')) || null;
 // Si no hay tiendas guardadas, usa las 10 de ejemplo
 let allStores = JSON.parse(localStorage.getItem('biomaStores')) || seedStores;
@@ -228,12 +339,16 @@ async function updateProfileAvatar(input) {
 
 function enableEditStore() {
     const s = currentUser.store;
-    document.getElementById('st-name').value = s.name;
-    document.getElementById('st-desc').value = s.desc;
-    document.getElementById('st-loc').value = s.loc;
-    document.getElementById('st-phone').value = s.phone || "";
-    document.getElementById('st-category').value = s.category || "";
-    document.getElementById('st-hours').value = s.hours;
+    if(!s) return;
+
+    // ... (tus campos actuales: name, desc, etc.) ...
+    
+    // Añade esto para las redes:
+    const soc = s.social || {};
+    document.getElementById('st-insta').value = soc.instagram || "";
+    document.getElementById('st-fb').value = soc.facebook || "";
+    document.getElementById('st-tiktok').value = soc.tiktok || "";
+    document.getElementById('st-x').value = soc.x || "";
     
     document.getElementById('store-dashboard').classList.add('hidden');
     document.getElementById('form-store-container').classList.remove('hidden');
@@ -241,30 +356,50 @@ function enableEditStore() {
 
 document.getElementById('store-form').onsubmit = async (e) => {
     e.preventDefault();
-    const img = await processImage(document.getElementById('st-img').files[0]);
-    const isEdit = !!currentUser.store;
+    
+    const imgFile = document.getElementById('st-img').files[0];
+    const img = imgFile ? await processImage(imgFile) : null;
+    const isEdit = !!(currentUser && currentUser.store);
     const oldName = isEdit ? currentUser.store.name : "";
 
-    const storeData = {
-        name: document.getElementById('st-name').value,
-        desc: document.getElementById('st-desc').value,
-        loc: document.getElementById('st-loc').value,
-        phone: document.getElementById('st-phone').value,
-        category: document.getElementById('st-category').value,
-        hours: document.getElementById('st-hours').value,
-        // Asigna distancia solo si es nueva
-        distance: isEdit ? (currentUser.store.distance || generarDistanciaAleatoria()) : generarDistanciaAleatoria(),
-        image: img || (isEdit ? currentUser.store.image : DEFAULT_STORE_IMG),
-        products: isEdit ? currentUser.store.products : []
+    // 1. Capturamos las redes de los inputs
+    const socialData = {
+        instagram: document.getElementById('st-insta').value.trim(),
+        facebook: document.getElementById('st-fb').value.trim(),
+        tiktok: document.getElementById('st-tiktok').value.trim(),
+        x: document.getElementById('st-x').value.trim()
     };
 
+    // 2. Creamos el objeto de la tienda
+    const storeData = {
+        name: document.getElementById('st-name').value.trim(),
+        desc: document.getElementById('st-desc').value.trim(),
+        loc: document.getElementById('st-loc').value.trim(),
+        phone: document.getElementById('st-phone').value.trim(),
+        category: document.getElementById('st-category').value,
+        hours: document.getElementById('st-hours').value.trim(),
+        distance: isEdit ? (currentUser.store.distance || generarDistanciaAleatoria()) : generarDistanciaAleatoria(),
+        image: img || (isEdit ? currentUser.store.image : DEFAULT_STORE_IMG),
+        products: isEdit ? (currentUser.store.products || []) : [],
+        social: socialData // Agregamos las redes aquí
+    };
+
+    // 3. Guardado triple para consistencia inmediata
     currentUser.store = storeData;
     const idx = allStores.findIndex(s => s.name === oldName);
-    if(idx > -1) allStores[idx] = storeData; else allStores.push(storeData);
+    if (idx > -1) {
+        allStores[idx] = storeData;
+    } else {
+        allStores.push(storeData);
+    }
     
-    saveState();
-    renderMyStoreView();
-    renderHomeStores();
+    saveState(); // Tu función de guardado
+    renderMyStoreView(); 
+    renderHomeStores(); 
+    
+    document.getElementById('form-store-container').classList.add('hidden');
+    document.getElementById('store-dashboard').classList.remove('hidden');
+    alert("¡Tienda y redes actualizadas!");
 };
 
 function renderMyStoreView() {
@@ -276,14 +411,61 @@ function renderMyStoreView() {
     document.getElementById('no-store-view').classList.add('hidden');
     document.getElementById('form-store-container').classList.add('hidden');
     document.getElementById('store-dashboard').classList.remove('hidden');
+    
     const s = currentUser.store;
+
+    // --- Lógica de Redes Sociales (Mismo estilo que vista pública) ---
+    const sMedia = s.social || {};
+    let socialHTML = "";
+
+    if (sMedia.instagram || sMedia.facebook || sMedia.tiktok || sMedia.x) {
+        socialHTML = `
+            <div>
+                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Mis Redes Vinculadas</p>
+                <div class="flex flex-wrap gap-3">
+                    ${sMedia.instagram ? `
+                        <a href="https://instagram.com/${sMedia.instagram}" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 text-white shadow-md hover:scale-110 transition">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>` : ''}
+                    ${sMedia.facebook ? `
+                        <a href="${sMedia.facebook.startsWith('http') ? sMedia.facebook : 'https://facebook.com/' + sMedia.facebook}" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-[#1877F2] text-white shadow-md hover:scale-110 transition">
+                            <i class="fab fa-facebook-f text-lg"></i>
+                        </a>` : ''}
+                    ${sMedia.tiktok ? `
+                        <a href="https://tiktok.com/@${sMedia.tiktok}" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-black text-white shadow-md hover:scale-110 transition">
+                            <i class="fab fa-tiktok text-lg"></i>
+                        </a>` : ''}
+                    ${sMedia.x ? `
+                        <a href="https://x.com/${sMedia.x}" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-900 text-white shadow-md hover:scale-110 transition">
+                            <span class="font-bold text-sm">X</span>
+                        </a>` : ''}
+                </div>
+            </div>
+        `;
+    }
+
+    // --- Renderizado del Dashboard ---
+    // Usamos la misma estructura Flexbox que la vista pública
     document.getElementById('store-info-display').innerHTML = `
-        <img src="${s.image}" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-2xl shadow">
-        <div class="flex-1">
-            <h3 class="text-3xl font-black text-biomer">${s.name}</h3>
-            <p class="text-gray-500 italic">${s.desc}</p>
-            <p class="text-sm font-bold mt-2">📍 ${s.loc} | 🕒 ${s.hours}</p>
-            <p class="text-xs font-bold text-biomer mt-1">📏 Distancia: ${s.distance}</p>
+        <img src="${s.image}" class="w-full md:w-64 h-64 md:h-auto object-cover rounded-2xl shadow-lg self-stretch">
+        <div class="flex-1 space-y-4">
+            <div>
+                <h3 class="text-3xl font-black text-biomer">${s.name}</h3>
+                <p class="text-gray-500 italic line-clamp-2">${s.desc}</p>
+                <p class="text-sm font-bold mt-2">📍 ${s.loc} | 🕒 ${s.hours}</p>
+                <p class="text-xs font-bold text-biomer mt-1">📏 Distancia: ${s.distance}</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pt-4 border-t border-gray-100">
+                <div class="flex-1">
+                    ${socialHTML || '<p class="text-[10px] font-black text-gray-300 uppercase tracking-widest">Configura tus redes en editar</p>'}
+                </div>
+                <div class="pb-1">
+                    <button onclick="window.open('https://wa.me/${s.phone}', '_blank')" class="w-full md:w-auto bg-biomer text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:brightness-110 transition flex items-center justify-center gap-2 whitespace-nowrap">
+                        <span>💬</span> Probar WhatsApp
+                    </button>
+                </div>
+            </div>
         </div>
     `;
     renderMyProducts();
@@ -473,48 +655,121 @@ function renderHomeStores() {
 // --- 10. VISTA DETALLADA DE TIENDA ---
 
 function viewStoreDetails(storeName) {
-    const store = allStores.find(s => s.name === storeName);
+    // 1. Buscar la tienda
+    let store;
+    if (!storeName && currentUser && currentUser.store) {
+        store = currentUser.store;
+    } else if (currentUser && currentUser.store && currentUser.store.name === storeName) {
+        store = currentUser.store;
+    } else {
+        store = allStores.find(s => s.name === storeName);
+    }
+
     if (!store) return;
 
+    // 2. Navegación y Scroll
     document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
-    document.getElementById('sec-store-view').classList.remove('hidden');
+    const storeViewSection = document.getElementById('sec-store-view');
+    if (storeViewSection) storeViewSection.classList.remove('hidden');
     window.scrollTo(0, 0);
 
-    const header = document.getElementById('public-store-header');
-    header.innerHTML = `
-        <img src="${store.image}" class="w-full md:w-64 h-64 object-cover rounded-2xl shadow-lg">
-        <div class="flex-1 space-y-4">
-            <div class="bg-gray-100 text-gray-600 text-[10px] font-black px-3 py-1 rounded-full uppercase inline-block">${store.category}</div>
-            <h2 class="text-4xl font-black text-gray-800 italic">${store.name}</h2>
-            <p class="text-gray-600 leading-relaxed">${store.desc}</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t">
-                <p class="text-sm"><strong>📍 Ubicación:</strong> ${store.loc}</p>
-                <p class="text-sm"><strong>🕒 Horario:</strong> ${store.hours}</p>
-                <p class="text-sm text-biomer"><strong>📏 Distancia:</strong> A ${store.distance}</p>
+    // 3. Lógica de Redes Sociales
+    const sMedia = store.social || {};
+    let socialHTML = "";
+    if (sMedia.instagram || sMedia.facebook || sMedia.tiktok || sMedia.x) {
+        socialHTML = `
+            <div>
+                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Redes Sociales</p>
+                <div class="flex flex-wrap gap-3">
+                    ${sMedia.instagram ? `<a href="https://instagram.com/${sMedia.instagram}" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 text-white shadow-md hover:scale-110 transition"><i class="fab fa-instagram text-lg"></i></a>` : ''}
+                    ${sMedia.facebook ? `<a href="${sMedia.facebook.startsWith('http') ? sMedia.facebook : 'https://facebook.com/' + sMedia.facebook}" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-[#1877F2] text-white shadow-md hover:scale-110 transition"><i class="fab fa-facebook-f text-lg"></i></a>` : ''}
+                    ${sMedia.tiktok ? `<a href="https://tiktok.com/@${sMedia.tiktok}" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-black text-white shadow-md hover:scale-110 transition"><i class="fab fa-tiktok text-lg"></i></a>` : ''}
+                    ${sMedia.x ? `<a href="https://x.com/${sMedia.x}" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-900 text-white shadow-md hover:scale-110 transition"><span class="font-bold text-sm">X</span></a>` : ''}
+                </div>
             </div>
-            <button class="bg-biomer text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:brightness-110 transition">
-                Contactar por WhatsApp
-            </button>
-        </div>
-    `;
+        `;
+    }
 
+    // 4. Renderizado del Header (Imagen auto-ajustable y WhatsApp a la derecha)
+    const header = document.getElementById('public-store-header');
+    if (header) {
+        header.innerHTML = `
+            <img src="${store.image}" class="w-full md:w-64 h-64 md:h-auto object-cover rounded-2xl shadow-lg self-stretch">
+            <div class="flex-1 space-y-4">
+                <div class="bg-gray-100 text-gray-600 text-[10px] font-black px-3 py-1 rounded-full uppercase inline-block">${store.category || 'General'}</div>
+                <h2 class="text-4xl font-black text-gray-800 italic">${store.name}</h2>
+                <p class="text-gray-600 leading-relaxed">${store.desc}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t">
+                    <p class="text-sm"><strong>📍 Ubicación:</strong> ${store.loc}</p>
+                    <p class="text-sm"><strong>🕒 Horario:</strong> ${store.hours}</p>
+                    <p class="text-sm text-biomer"><strong>📏 Distancia:</strong> A ${store.distance || '---'}</p>
+                </div>
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pt-4 border-t border-gray-100">
+                    <div class="flex-1">${socialHTML || '<p class="text-[10px] font-black text-gray-300 uppercase tracking-widest">Contacto Directo</p>'}</div>
+                    <div class="pb-1">
+                        <button onclick="window.open('https://wa.me/${store.phone}', '_blank')" class="w-full md:w-auto bg-biomer text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:brightness-110 transition flex items-center justify-center gap-2 whitespace-nowrap">
+                            <span>💬</span> Contactar por WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // 5. Renderizado de Productos
     const grid = document.getElementById('public-products-grid');
-    if (store.products.length === 0) {
-        grid.innerHTML = "<p class='col-span-full text-center text-gray-400 italic py-10'>Esta tienda aún no tiene productos.</p>";
-    } else {
-        grid.innerHTML = store.products.map(p => `
-            <div class="bg-white rounded-2xl border shadow-sm overflow-hidden hover:shadow-md transition">
-                <img src="${p.image}" class="w-full h-40 object-cover">
-                <div class="p-4">
-                    <h5 class="font-bold text-gray-800 truncate">${p.name}</h5>
-                    <p class="text-[10px] text-gray-500 line-clamp-2 mb-2">${p.desc}</p>
-                    <span class="text-biomer font-black">$${p.price}</span>
+    if (grid) {
+        grid.innerHTML = (store.products && store.products.length > 0) 
+            ? store.products.map(p => `
+                <div class="bg-white rounded-2xl border shadow-sm overflow-hidden hover:shadow-md transition">
+                    <img src="${p.image}" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h5 class="font-bold text-gray-800 truncate">${p.name}</h5>
+                        <p class="text-[10px] text-gray-500 line-clamp-2 mb-2">${p.desc}</p>
+                        <span class="text-biomer font-black">$${p.price}</span>
+                    </div>
+                </div>
+            `).join('')
+            : `<p class="col-span-full text-center text-gray-400 italic py-10">Esta tienda aún no tiene productos.</p>`;
+    }
+
+    // 6. RECOMENDACIONES (Para que se vea SIEMPRE, incluso desde el Home)
+    const similarGrid = document.getElementById('similar-stores-grid');
+    if (similarGrid) {
+        const currentCat = (store.category || '').trim().toLowerCase();
+        
+        // Función interna para calcular metros
+        const getMeters = (d) => {
+            if(!d) return Infinity;
+            const v = parseFloat(d.replace(/[^\d.,]/g, '').replace(',', '.'));
+            return d.toLowerCase().includes('km') ? v * 1000 : v;
+        };
+
+        // Buscar recomendadas
+        let recs = allStores.filter(s => (s.category || '').trim().toLowerCase() === currentCat && s.name !== store.name);
+        
+        // Si no hay de la misma categoría, traer las más cercanas de otras
+        if (recs.length === 0) {
+            recs = allStores.filter(s => s.name !== store.name);
+        }
+
+        recs.sort((a, b) => getMeters(a.distance) - getMeters(b.distance));
+
+        similarGrid.innerHTML = recs.slice(0, 3).map(s => `
+            <div onclick="viewStoreDetails('${s.name}')" class="bg-white p-4 rounded-3xl border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                <div class="h-32 overflow-hidden rounded-2xl mb-3 relative">
+                    <img src="${s.image}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-[8px] font-black px-2 py-1 rounded-lg shadow-sm uppercase">${s.category}</div>
+                </div>
+                <h4 class="font-bold text-sm text-gray-800 group-hover:text-biomer transition-colors truncate">${s.name}</h4>
+                <div class="flex justify-between items-center mt-2 pt-2 border-t border-dashed">
+                    <p class="text-[10px] font-bold text-biomer italic">📏 A ${s.distance}</p>
+                    <span class="text-[8px] font-black text-gray-400 uppercase tracking-widest">Ver más</span>
                 </div>
             </div>
         `).join('');
     }
 }
-
 // --- 11. SISTEMA Y MAPA ---
 
 function saveState() {
@@ -583,23 +838,5 @@ function updateRegisterAvatarLabel(input) {
     } else {
         textLabel.innerText = "Subir foto de perfil";
         previewDiv.innerHTML = "👤";
-    }
-}
-
-// Cerrar modal al hacer clic fuera de la tarjeta
-window.onclick = function(event) {
-    const modal = document.getElementById('modal-store-details');
-    const modalContent = modal.querySelector('.bg-white'); // Buscamos la tarjeta blanca
-
-    // Si el modal está visible Y el clic fue en el fondo negro (el modal mismo)
-    if (event.target == modal) {
-        closeStoreDetails();
-    }
-}
-
-// Extra: Cerrar con la tecla Escape
-window.onkeydown = function(event) {
-    if (event.key === "Escape") {
-        closeStoreDetails();
     }
 }
